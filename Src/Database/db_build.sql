@@ -6,7 +6,7 @@ CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
     password CHAR(64) NOT NULL,
-    member_since TIMESTAMPTZ NOT NULL NOW()
+    member_since TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
 CREATE TABLE destinations (
@@ -17,10 +17,8 @@ CREATE TABLE destinations (
 
 CREATE TABLE comments (
     comment TEXT NOT NULL,
-    userid INT,
-    destid INT,
-    FOREIGN KEY destid REFERENCES destinations(id),
-    FOREIGN KEY userid REFERENCES users(id),
+    userid INTEGER REFERENCES users(id),
+    destid INTEGER REFERENCES destinations(id),
     PRIMARY KEY (userid, destid) 
 );
 
