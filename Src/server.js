@@ -1,10 +1,9 @@
 const http = require('http');
-const router = require('./router.js');
+const router = require('./router');
 
-const server = http.createServer(router);
-const port = process.env.PORT || 7000;
 const host = process.env.HOST || 'localhost';
+const port = process.env.PORT || 4300;
 
-server.listen(port, () => {
-    console.log(`Magic happens at http://${host}:${port}`);
+http.createServer(router).listen(port, () => {
+  console.log(`Magic happens at http://${host}:${port}`);
 });
