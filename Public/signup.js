@@ -6,7 +6,7 @@ const form = document.getElementById("signup-form");
 submit.disabled = true;
 
 form.addEventListener('keyup',function(){
-    if (confirmPass.value !== password.value || validatePass(password.value) || username.value.length === 0){
+    if (confirmPass.value !== password.value || !validatePass(password.value) || username.value.length === 0){
         submit.disabled = true;
         console.log("can't submit yet");
     } else {

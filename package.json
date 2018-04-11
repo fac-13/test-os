@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build-db": "node Src/Database/db_build.js"
+    "build-db": "node Src/Database/db_build.js",
+    "start" : "node Src/server.js",
+    "dev" : "nodemon Src/server.js"
   },
   "repository": {
     "type": "git",
