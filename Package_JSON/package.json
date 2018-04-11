@@ -1,0 +1,31 @@
+{
+  "name": "test-os",
+  "version": "1.0.0",
+  "description": "A web app where you can write a comment on a place you have visited",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fac-13/test-os.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fac-13/test-os/issues"
+  },
+  "homepage": "https://github.com/fac-13/test-os#readme",
+  "devDependencies": {
+    "nock": "^9.2.5",
+    "nodemon": "^1.17.3",
+    "ny": "^1.7.0",
+    "supertest": "^3.0.0",
+    "tap-spec": "^4.1.1",
+    "tape": "^4.9.0"
+  },
+  "dependencies": {
+    "env2": "^2.2.0",
+    "pg": "^7.4.1"
+  }
+}
