@@ -1,12 +1,5 @@
-<<<<<<< HEAD:queries/check_username.js
+
 const dbConnection = require("../src/database/db_connection.js");
-=======
-<<<<<<< HEAD:Queries/check_username.js
-const dbConnection = require("../Src/Database/db_connection.js");
-=======
-const dbConnection = require("../src/database/db_connection.js");
->>>>>>> 2fde71991865fde6de9bf79687c168bddff322d5:queries/check_username.js
->>>>>>> master:queries/check_username.js
 
 const check_user_exists = (username, cb) => {
   dbConnection.query(
