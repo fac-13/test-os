@@ -3,7 +3,7 @@ const path = require('path');
 const qs = require('querystring');
 const check_user_exists = require('../Queries/check_username');
 const check_user_password = require('./../Queries/check_user_password');
-
+const bcrypt = require('bcryptjs');
 const { log } = console;
 
 const loginHandler = (req, res) => {
@@ -15,6 +15,7 @@ const loginHandler = (req, res) => {
     const info = qs.parse(data);
     const username = info.username;
     const password = info.password;
+
     check_user_exists(username, (err,response) => {
       if (err) console.log(err)
       // else console.log(res[Object.keys(res)[0]]);
