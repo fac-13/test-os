@@ -1,8 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const qs = require('querystring');
-const check_user_exists = require('../Queries/check_username');
-const check_user_password = require('./../Queries/check_user_password');
+const check_user_exists = require('../queries/check_username');
+const check_user_password = require('../queries/check_user_password');
 const bcrypt = require('bcryptjs');
 const { log } = console;
 

@@ -1,4 +1,4 @@
-const dbConnection = require("../Src/Database/db_connection.js");
+const dbConnection = require("../src/database/db_connection.js");
 
 const get_user_id = (username, cb) => {
   dbConnection.query(
