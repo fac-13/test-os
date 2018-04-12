@@ -3,8 +3,11 @@ const path = require('path');
 const qs = require('querystring');
 const check_user_exists = require('../queries/check_username');
 const check_user_password = require('../queries/check_user_password');
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const { log } = console;
+const secret = process.env.secret;
+
+
 
 const loginHandler = (req, res) => {
   let data = '';
@@ -16,30 +19,44 @@ const loginHandler = (req, res) => {
     const username = info.username;
     const password = info.password;
 
-    check_user_exists(username, (err,response) => {
+    bcrypt.genSalt(10, (err, salt) => {
+    bcrypt.hash(password, salt, (err, hash) => {
+    if (err) {
+    console.log(err);
+    } else {
+    console.log("hash: ", hash); } }); });
+
+    check_user_exists(username, (err,resUserExists) => {
       if (err) console.log(err)
       // else console.log(res[Object.keys(res)[0]]);
       else {
-        const boolean = response[0].case; 
+        const boolean = resUserExists[0].case; 
         if (boolean === true) {
-        check_user_password(username, password, (err, response) => {
+
+        check_user_password(username, (err, resPassword) => {
           // console.log(res);
-          const boolean = response[0].case; 
           if(err){
             res.writeHead(500, {'Content-Type':'text/html'});
             res.end("<h1> Can't log in at this time</h1>");
           } else {
-            if(boolean === false ){
-              res.writeHead(500, {'Content-Type':'text/html'});
+
+          bcrypt.compare(password, resPassword, (err,resBcrypt) => {
+            console.log("password is ", password);
+            console.log("res password ", resPassword);
+            console.log(resBcrypt);
+            if (err) {
+            res.writeHead(500, {'Content-Type':'text/html'});
+            res.end("<h1>Something went wrong with our server</h1>");
+            } else {
+              if (resBcrypt === false) {
+              res.writeHead(401, {'Content-Type':'text/html'});
               res.end("<h1>Incorrect password</h1>");
-            } else if (boolean === true){
-              // console.log("Success");
+              } else {
               res.writeHead(200, {'Content-Type':'text/html'});
               res.end("<h1>Success</h1>");
-              // token = jwt.sign({'logged-in' : 'true', 'username' : `${username}`}, secret);
-              // response.writeHead(200, {
-              // "Content-Type": "text/html", 'Set-Cookie' : `Token = ${token}; HttpOnly; Max-Age=9000;`
+                }
               }
+            });
             }
           });
         }  
@@ -49,8 +66,8 @@ const loginHandler = (req, res) => {
 };
 
 const signUpHandler = (req, res) => {
-  log('sign up handler')
-}
+
+};
 
 
 const resResourceError = (res) => {

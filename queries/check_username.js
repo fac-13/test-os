@@ -1,4 +1,4 @@
-const dbConnection = require("../Src/Database/db_connection.js");
+const dbConnection = require("../src/database/db_connection.js");
 
 const check_user_exists = (username, cb) => {
   dbConnection.query(

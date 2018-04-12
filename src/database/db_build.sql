@@ -22,7 +22,7 @@ CREATE TABLE comments (
     PRIMARY KEY (userid, destid)
 );
 
-INSERT INTO users(username, password) VALUES ('johndoe', 'Password123!'), ('joedummy', 'Password234!'), ('joecopy', 'Password345!');
+INSERT INTO users(username, password) VALUES ('johndoe', '$2a$10$dUvzyyKQwycW8OsBgaymzeuVaHpKh451jOyvKbvipJDYJTjxRVGHO'), ('joedummy', '$2a$10$8RVhoTjhMDK2bW.VMsllae/BVA7SrSdBxPBuACtjOyn5hntW6FY6i'), ('joecopy', '$2a$10$IblyiAMl5dvRFBnR1zQWn.MT2LuS1BX5DUKUMdUjt9S6E/RkonkNC');
 
 INSERT INTO destinations(country , city) VALUES ('United Kingdom', 'London'), ('United Kingdom', 'Southampton'), ('Cyprus', 'Nicosia');
 
