@@ -19,10 +19,10 @@ CREATE TABLE comments (
     comment TEXT NOT NULL,
     userid BIGINT REFERENCES users(id),
     destid BIGINT REFERENCES destinations(id),
-    PRIMARY KEY (userid, destid) 
+    PRIMARY KEY (userid, destid)
 );
 
-INSERT INTO users(username, password) VALUES ('johndoe', 'password1'), ('joedummy', 'password2'), ('joecopy', 'password3');
+INSERT INTO users(username, password) VALUES ('johndoe', 'Password123!'), ('joedummy', 'Password234!'), ('joecopy', 'Password345!');
 
 INSERT INTO destinations(country , city) VALUES ('United Kingdom', 'London'), ('United Kingdom', 'Southampton'), ('Cyprus', 'Nicosia');
 

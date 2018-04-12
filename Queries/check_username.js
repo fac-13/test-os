@@ -1,6 +1,6 @@
-const dbConnection = require("../database/db_connection.js");
+const dbConnection = require("../Src/Database/db_connection.js");
 
-const check_username_exists = (username, cb) => {
+const check_user_exists = (username, cb) => {
   dbConnection.query(
     `SELECT CASE WHEN EXISTS(SELECT username FROM users WHERE username = $1) THEN CAST (true AS BOOLEAN) ELSE CAST (false AS BOOLEAN) END`,
     [username],
