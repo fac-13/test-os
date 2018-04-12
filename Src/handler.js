@@ -61,12 +61,18 @@ const listHandler = (req, res) => {
       resResourceError(res)
     } else {
       const obj = JSON.parse(file);
+      const listOfCountries = Object.keys(obj);
       if (groupName === 'country') {
-        const listOfCountries = Object.keys(obj);
-        log(listOfCountries);
         res200(res, JSON.stringify(listOfCountries), 'application/json');
       } else {
         log('get cities list');
+        const country = req.url.split('&')[1].replace('%20', ' ');
+        log(country);
+        if (listOfCountries.includes(country)) {
+          const cites = obj[country];
+          res200(res, JSON.stringify(cites), 'application/json');
+        }
+
       }
       
     }

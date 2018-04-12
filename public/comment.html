@@ -8,21 +8,21 @@
 <body>
   <form id="comment-form" action="/add-comment" method="POST">
     <label for="country-input">Select Country</label>
-    <input list="countries" name="country" id="country-input">
+    <input list="countries" name="country" id="country-input" autocomplete="off">
     <datalist id="countries">
 
     </datalist>
 
 
     <label for="city-input">Select City</label>
-    <input list="cities" name="city" id="city-input">
+    <input list="cities" name="city" id="city-input" autocomplete="off">
     <datalist id="cities">
       
     </datalist>
 
 
     <label for="comment-input">Write your comment</label>
-    <textarea name="comment" cols="30" rows="10" id="comment-input"></textarea>
+    <textarea name="comment" cols="30" rows="10" id="comment-input" autocomplete="off"></textarea>
   </form>
   
   <script src="./comment.js"></script>
