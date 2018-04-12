@@ -6,23 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-  <form action="/add-comment" method="POST">
+  <form id="comment-form" action="/add-comment" method="POST">
     <label for="country-input">Select Country</label>
-    <input list="countries" name="" id="country-input">
+    <input list="countries" name="country" id="country-input">
     <datalist id="countries">
 
     </datalist>
 
 
     <label for="city-input">Select City</label>
-    <input list="cities" name="" id="city-input">
+    <input list="cities" name="city" id="city-input">
     <datalist id="cities">
       
     </datalist>
 
 
     <label for="comment-input">Write your comment</label>
-    <textarea name="comment-input" id="" cols="30" rows="10" id="comment-input"></textarea>
+    <textarea name="comment" cols="30" rows="10" id="comment-input"></textarea>
   </form>
   
   <script src="./comment.js"></script>
