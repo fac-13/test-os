@@ -1,11 +1,33 @@
 const fs = require('fs');
 const path = require('path');
 const qs = require('querystring');
+const check_user_exists = require('../Queries/check_username')
 
 const { log } = console;
 
 const loginHandler = (req, res) => {
-  log('login handler')
+  let data = '';
+  req.on('data', function(chunk){
+    data += chunk;
+  });
+  req.on('end',() =>{
+    const info = qs.parse(data);
+    check_user_exists(info.username, (err,res) => {
+      var stringify = JSON.stringify(res[0])
+      if (err) console.log(err)
+      // else console.log(res[Object.keys(res)[0]]);
+      else {
+        console.log(res[0]);
+        console.log(typeof res[0]);
+        console.log(res[0].case);
+
+
+      }
+    });
+    res.writeHead(302,{
+    'location': "/Public/login.html"})
+    res.end();
+  })
 }
 
 const signUpHandler = (req, res) => {

@@ -7,13 +7,13 @@
   <body>
     <section>
 
-      <form class="login__form">
+      <form class="login__form" action="/login" method="POST">
 
         <label for="username">Username:
-          <input id="username" type="text" required pattern="^[a-zA-Z0-9]+$"  title="Please provide an alphanumeric name"/>
+          <input id="username" type="text" required pattern="^[a-zA-Z0-9]+$"  title="Please provide an alphanumeric name" name="username" value=""/>
         </label>
         <label for="password">Password:
-          <input id="password" type="password" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[!$%&amp(-/:-?_{}~])(?=.*[A-Z]).{9,}"  title="Password should contain at least 9 characters, at least 1 capital letter, at least 1 lowercase letter, 1 number &amp a special character."/>
+          <input id="password" type="password" name="password" value="" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[!$%&amp(-/:-?_{}~])(?=.*[A-Z]).{9,}"  title="Password should contain at least 9 characters, at least 1 capital letter, at least 1 lowercase letter, 1 number &amp a special character."/>
         </label>
 
       <p class="error" aria-live="polite"></p>
