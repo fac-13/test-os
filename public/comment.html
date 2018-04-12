@@ -6,6 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
+  <nav>
+    <a href="/">home</a>
+    <a href="/public/comment.html">Add Comment</a>
+    <a href="/public/signup.html">Sign Up</a>
+    <a href="/public/login.html">Login</a>
+  </nav>
+
   <form id="comment-form" action="/add-comment" method="POST">
     <label for="country-input">Select Country</label>
     <input list="countries" name="country" id="country-input" required autocomplete="off">
