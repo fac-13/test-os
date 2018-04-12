@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <section>
+
+      <form class="login__form">
+
+        <label for="username">Username:
+          <input id="username" type="text" required pattern="^[a-zA-Z0-9]+$"  title="Please provide an alphanumeric name"/>
+        </label>
+        <label for="password">Password:
+          <input id="password" type="password" required pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"  title="Password should contain more than 8 characters, at least 1 capital letter and 1 number"/>
+        </label>
+
+      <p class="error" aria-live="polite"></p>
+
+      <input type="submit" id="loginButton" value="login"/>
+      </form>
+
+    </section>
+    <script type="text/javascript" src="login.js"></script>
+  </body>
+</html>
