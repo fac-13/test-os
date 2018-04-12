@@ -5,7 +5,11 @@ const submit = document.getElementById("submit");
 const form = document.getElementById("signup-form");
 submit.disabled = true;
 
+
+
 form.addEventListener('keyup',function(){
+  password.value= password.value.replace(/</g, "&lt").replace(/>/g, "&gt");
+  console.log(password.value);
     if (confirmPass.value !== password.value || !validatePass(password.value) || username.value.length === 0){
         submit.disabled = true;
         console.log("can't submit yet");
@@ -13,7 +17,7 @@ form.addEventListener('keyup',function(){
         console.log("matched");
         submit.disabled = false;
     }
-    
+
 });
 
 function validatePass(value) {

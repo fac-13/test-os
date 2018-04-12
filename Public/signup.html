@@ -12,11 +12,11 @@
     <section class="section__form">
         <form id="signup-form" action="/signup" method="POST">
             <label for="username">Username</label>
-            <input id="username" type="text" required>
+            <input id="username" pattern="^[a-zA-Z0-9]+$" type="text" required>
             <label for="password">Password</label>
-            <input id="password" type="password" required>
+            <input id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!$%&amp(-/:-?_{}~])(?=.*[A-Z]).{9,}" type="password" required>
             <label for="confirm-password">Confirm Password</label>
-            <input id="confirm-password" type="password" required>
+            <input id="confirm-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!$%&amp(-/:-?_{}~])(?=.*[A-Z]).{9,}" type="password" required>
             <button id="submit" type="submit">Submit</button>
         </form>
     </section>
