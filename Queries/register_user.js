@@ -2,7 +2,7 @@ const dbConnection = require("../database/db_connection.js");
 
 const register_user = (user, cb) => {
   dbConnection.query(
-    `INSERT INTO users(name, password) VALUES ($1, $2)`,
+    `INSERT INTO users(username, password) VALUES ($1, $2)`,
     [
       user.username,
       user.password,
