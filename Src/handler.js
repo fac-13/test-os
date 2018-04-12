@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 const qs = require('querystring');
-const check_user_exists = require('../Queries/check_username')
+const check_user_exists = require('../Queries/check_username');
+const check_user_password = require('./../Queries/check_user_password');
 
 const { log } = console;
 
@@ -10,25 +11,41 @@ const loginHandler = (req, res) => {
   req.on('data', function(chunk){
     data += chunk;
   });
-  req.on('end',() =>{
+  req.on('end',() => {
     const info = qs.parse(data);
-    check_user_exists(info.username, (err,res) => {
-      var stringify = JSON.stringify(res[0])
+    const username = info.username;
+    const password = info.password;
+    check_user_exists(username, (err,response) => {
       if (err) console.log(err)
       // else console.log(res[Object.keys(res)[0]]);
       else {
-        console.log(res[0]);
-        console.log(typeof res[0]);
-        console.log(res[0].case);
-
-
+        const boolean = response[0].case; 
+        if (boolean === true) {
+        check_user_password(username, password, (err, response) => {
+          // console.log(res);
+          const boolean = response[0].case; 
+          if(err){
+            res.writeHead(500, {'Content-Type':'text/html'});
+            res.end("<h1> Can't log in at this time</h1>");
+          } else {
+            if(boolean === false ){
+              res.writeHead(500, {'Content-Type':'text/html'});
+              res.end("<h1>Incorrect password</h1>");
+            } else if (boolean === true){
+              // console.log("Success");
+              res.writeHead(200, {'Content-Type':'text/html'});
+              res.end("<h1>Success</h1>");
+              // token = jwt.sign({'logged-in' : 'true', 'username' : `${username}`}, secret);
+              // response.writeHead(200, {
+              // "Content-Type": "text/html", 'Set-Cookie' : `Token = ${token}; HttpOnly; Max-Age=9000;`
+              }
+            }
+          });
+        }  
       }
     });
-    res.writeHead(302,{
-    'location': "/Public/login.html"})
-    res.end();
-  })
-}
+  });
+};
 
 const signUpHandler = (req, res) => {
   log('sign up handler')
@@ -105,9 +122,5 @@ module.exports = {
   staticHandler,
   signUpHandler,
   loginHandler,
-<<<<<<< HEAD
   listHandler
 }
-=======
-}
->>>>>>> 0245de3e6dbbc79c3ba481b88a2f91cd573492c8

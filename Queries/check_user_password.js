@@ -1,12 +1,12 @@
-const dbConnection = require("../database/db_connection.js");
+const dbConnection = require("../Src/Database/db_connection.js");
 
-const check_user_password = (username, cb) => {
+const check_user_password = (username, password, cb) => {
   dbConnection.query(
-    `SELECT password FROM users WHERE username=$1`,
-    [username],
+    `SELECT CASE WHEN EXISTS(SELECT password FROM users WHERE username = $1 AND password = $2) THEN CAST (true AS BOOLEAN) ELSE CAST (false AS BOOLEAN) END`,
+    [username, password],
     (err, res) => {
       if (err) cb(err);
-      else cb(null, res);
+      else cb(null, res.rows);
     }
   );
 };
