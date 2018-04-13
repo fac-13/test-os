@@ -28,29 +28,24 @@ const loginHandler = (req, res) => {
         // else console.log(res[Object.keys(res)[0]]);
         const boolean = resUserExists[0].case;
         if (boolean === true) {
-          check_user_password(username, (err, resPassword) => {
-            // console.log(resPassword);
+          check_user_password(username, password, (err, boolean) => {
             if (err) {
-              res.writeHead(500, { "Content-Type": "text/html" });
-              res.end("<h1> Can't log in at this time</h1>");
-            } else {
-              bcrypt.compare(password, resPassword, (err, resBcrypt) => {
-                console.log("password is ", password);
-                console.log("res password ", resPassword);
-                console.log(resBcrypt);
-                if (err) {
-                  res.writeHead(500, { "Content-Type": "text/html" });
-                  res.end("<h1>Something went wrong with our server</h1>");
-                } else {
-                  if (resBcrypt === false) {
-                    res.writeHead(401, { "Content-Type": "text/html" });
-                    res.end("<h1>Incorrect password</h1>");
-                  } else {
-                    res.writeHead(200, { "Content-Type": "text/html" });
-                    res.end("<h1>Success</h1>");
-                  }
-                }
+              res.writeHead(500, {
+                "Content-Type": "text/html"
               });
+              res.end("<h1>Oops, something went wrong.</h1>");
+            } else {
+              if (boolean) {
+                res.writeHead(200, {
+                  "Content-Type": "text/html"
+                });
+                res.end("<h1>Success</h1>");
+              } else {
+                res.writeHead(401, {
+                  "Content-Type": "text/html"
+                });
+                res.end("<h1>Wrong password.</h1>");
+              }
             }
           });
           // } else {
