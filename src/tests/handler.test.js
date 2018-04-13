@@ -28,7 +28,7 @@ test('Test signUpHandler', (t) => {
   
 })
 
-test('Test signUpHandler', (t) => {
+test('Test loginHandler', (t) => {
 
   buildTestDb((err, res, dbConnection) => {
     supertest(signUpHandler)
@@ -43,7 +43,7 @@ test('Test signUpHandler', (t) => {
     .post('/login')
     .send('username=lawrence')
     .send(`password=${TEST_PASSWORD}`)
-    .expect(200)
+    .expect(302)
     .end((err, res) => {
       // console.log(res);
       t.error(err, 'user successfully logged in');

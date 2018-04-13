@@ -9,9 +9,14 @@ const check_destination_exists = require("../queries/check_destinations");
 const register_destination = require("../queries/register_destination");
 const get_destination_id = require("../queries/get_destination_id");
 const register_comment = require("../queries/register_comment");
+const { sign, verify } = require("jsonwebtoken")
 
 const { log } = console;
 const secret = process.env.secret;
+
+const issueToken = (username) => {
+  return sign({ username, }, secret);
+}
 
 const loginHandler = (req, res) => {
   let data = "";
@@ -35,11 +40,16 @@ const loginHandler = (req, res) => {
               });
               res.end("<h1>Oops, something went wrong.</h1>");
             } else {
+              console.log(boolean);
               if (boolean) {
-                res.writeHead(200, {
-                  "Content-Type": "text/html"
+                // issue cookie
+                const token = issueToken(username);
+                console.log(token);
+                res.writeHead(302, {
+                  "Location": "/",
+                  "Set-Cookie": `user=${token}; HttpOnly`
                 });
-                res.end("<h1>Success</h1>");
+                res.end();
               } else {
                 res.writeHead(401, {
                   "Content-Type": "text/html"
@@ -48,9 +58,6 @@ const loginHandler = (req, res) => {
               }
             }
           });
-          // } else {
-          //   res.writeHead(302, {location: "/Public/login.html"});
-          //   res.end();
         }
       }
     });
