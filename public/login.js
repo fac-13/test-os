@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 const form = document.getElementsByClassName("login__form")[0];
 const username = document.getElementById('username');
 const password = document.getElementById('password');
