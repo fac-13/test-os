@@ -1,4 +1,4 @@
-const { staticHandler, signUpHandler, loginHandler, listHandler, addCommentHandler } = require('./handler')
+const { staticHandler, signUpHandler, loginHandler, listHandler, addCommentHandler, navbarNameHandler } = require('./handler')
 
 
 const router = (request, response) => {
@@ -7,6 +7,8 @@ const router = (request, response) => {
     console.log(url)
     if (url.includes('list')) {
       listHandler(request, response);
+    } else if(url.includes('navbar')) {
+      navbarNameHandler(request, response);
     } else {
       staticHandler(request, response);
     }

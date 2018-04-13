@@ -21,3 +21,18 @@
 //   }
 //
 // });
+
+
+(function() {
+    // get request to recieve username to display in nav bar
+
+    const xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+            const message = this.responseText;
+            console.log(message);
+        }
+    }
+    xhr.open('GET', '/navbar', true);
+    xhr.send();
+})();
