@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-const fs = require('fs');
-const path = require('path');
-const qs = require('querystring');
-const check_user_exists = require('../Queries/check_username')
-const check_destination_exists = require('../queries/check_destinations');
-const register_destination = require('../queries/register_destination');
-const get_destination_id = require('../queries/get_destination_id');
-const register_comment = require('../queries/register_comment');
-=======
 const fs = require("fs");
 const path = require("path");
 const qs = require("querystring");
@@ -19,37 +9,11 @@ const check_destination_exists = require("../queries/check_destinations");
 const register_destination = require("../queries/register_destination");
 const get_destination_id = require("../queries/get_destination_id");
 const register_comment = require("../queries/register_comment");
->>>>>>> b23c740d3b180a089d5489122656a58b31f90f9a
 
 const { log } = console;
 const secret = process.env.secret;
 
 const loginHandler = (req, res) => {
-<<<<<<< HEAD
-  let data = '';
-  req.on('data', function(chunk){
-    data += chunk;
-  });
-  req.on('end',() =>{
-    const info = qs.parse(data);
-    check_user_exists(info.username, (err,res) => {
-      var stringify = JSON.stringify(res[0])
-      if (err) console.log(err)
-      // else console.log(res[Object.keys(res)[0]]);
-      else {
-        console.log(res[0]);
-        console.log(typeof res[0]);
-        console.log(res[0].case);
-
-
-      }
-    });
-    res.writeHead(302,{
-    'location': "/Public/login.html"})
-    res.end();
-  })
-}
-=======
   let data = "";
   req.on("data", function (chunk) {
     data += chunk;
@@ -94,7 +58,6 @@ const loginHandler = (req, res) => {
     });
   });
 };
->>>>>>> b23c740d3b180a089d5489122656a58b31f90f9a
 
 const signUpHandler = (req, res) => {
   let data = "";
@@ -142,6 +105,7 @@ const signUpHandler = (req, res) => {
     });
   });
 };
+
 
 function getUserId() {
   return 1;
