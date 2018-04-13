@@ -54,6 +54,9 @@ const loginHandler = (req, res) => {
               });
             }
           });
+        // } else {
+        //   res.writeHead(302, {location: "/Public/login.html"});
+        //   res.end();
         }
       }
     });
@@ -144,8 +147,6 @@ const addCommentHandler = (req, res) => {
   req.on("data", function (chunk) {
     data += chunk;
   });
-
-
   req.on("end", () => {
     const { country, city, comment } = qs.parse(data);
     // get user id from cookie
