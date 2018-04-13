@@ -9,13 +9,40 @@ const check_destination_exists = require("../queries/check_destinations");
 const register_destination = require("../queries/register_destination");
 const get_destination_id = require("../queries/get_destination_id");
 const register_comment = require("../queries/register_comment");
-const { sign, verify } = require("jsonwebtoken")
+const { sign, verify } = require("jsonwebtoken");
+const { parse } = require("cookie");
 
 const { log } = console;
 const secret = process.env.secret;
 
 const issueToken = (username) => {
   return sign({ username, }, secret);
+}
+
+const navbarNameHandler = (req, res) => {
+  // verify the cookie
+  // console.log(req.headers.cookie);
+  
+  const { user:token } = parse(req.headers.cookie);
+  // if no cookie send empty string
+  if (!token) {
+    res.writeHead(200, { "content-type": "text/plain" });
+    res.end('');
+  } else {
+    verify(token, secret, (err, token) => {
+      if (err) {
+        res.writeHead(401, {
+          "Content-Type": "text/html"
+        });
+        res.end("<h1>Token Invalid</h1>");
+      } else {
+        const { username } = token;
+        res.writeHead(200, {"content-type": "text/plain"});
+        res.end(username);
+      }
+    });
+    
+  }
 }
 
 const loginHandler = (req, res) => {
@@ -232,5 +259,6 @@ module.exports = {
   signUpHandler,
   loginHandler,
   listHandler,
-  addCommentHandler
+  addCommentHandler,
+  navbarNameHandler
 };
