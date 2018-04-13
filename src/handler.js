@@ -15,7 +15,7 @@ const secret = process.env.secret;
 
 const loginHandler = (req, res) => {
   let data = "";
-  req.on("data", function (chunk) {
+  req.on("data", function(chunk) {
     data += chunk;
   });
   req.on("end", () => {
@@ -29,7 +29,7 @@ const loginHandler = (req, res) => {
         const boolean = resUserExists[0].case;
         if (boolean === true) {
           check_user_password(username, (err, resPassword) => {
-            // console.log(res);
+            // console.log(resPassword);
             if (err) {
               res.writeHead(500, { "Content-Type": "text/html" });
               res.end("<h1> Can't log in at this time</h1>");
@@ -53,9 +53,9 @@ const loginHandler = (req, res) => {
               });
             }
           });
-        // } else {
-        //   res.writeHead(302, {location: "/Public/login.html"});
-        //   res.end();
+          // } else {
+          //   res.writeHead(302, {location: "/Public/login.html"});
+          //   res.end();
         }
       }
     });
@@ -64,7 +64,7 @@ const loginHandler = (req, res) => {
 
 const signUpHandler = (req, res) => {
   let data = "";
-  req.on("data", function (chunk) {
+  req.on("data", function(chunk) {
     data += chunk;
   });
   req.on("end", () => {
@@ -82,33 +82,25 @@ const signUpHandler = (req, res) => {
             "<h1>User already exists. Please login using our login form.</h1>"
           );
         } else {
-          bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(password, salt, (err, hash) => {
-              if (err) {
-                console.log(err);
-              } else {
-                register_user(username, hash, (err, resRegUser) => {
-                  if (err) {
-                    res.writeHead(500, {
-                      "Content-Type": "text/html"
-                    });
-                    res.end("<h1>Username already exists. Please use login form instead</h1>");
-                  } else {
-                    res.writeHead(200, {
-                      "Content-Type": "text/html"
-                    });
-                    res.end("<h1>Registration Successful</h1>");
-                  }
-                });
-              }
-            });
+          register_user(username, password, (err, success) => {
+            if (err) {
+              res.writeHead(500, {
+                "Content-Type": "text/html"
+              });
+              res.end("<h1>Oops, something went wrong.</h1>");
+            } else {
+              console.log(success);
+              res.writeHead(200, {
+                "Content-Type": "text/html"
+              });
+              res.end("<h1>Success</h1>");
+            }
           });
         }
       }
     });
   });
 };
-
 
 function getUserId() {
   return 1;
@@ -143,7 +135,7 @@ function getDestinationId(country, city, cb) {
 
 const addCommentHandler = (req, res) => {
   let data = "";
-  req.on("data", function (chunk) {
+  req.on("data", function(chunk) {
     data += chunk;
   });
   req.on("end", () => {
@@ -153,18 +145,18 @@ const addCommentHandler = (req, res) => {
     //get destinations id from destinations
 
     getDestinationId(country, city, (err, destId) => {
-      log('destid', destId)
+      log("destid", destId);
       register_comment(comment, userId, destId, (err, dbRes) => {
         if (err) {
-          log(err)
-          res.writeHead(401, { 'location': '/public/comment.html' });
-          res.end('you have already made a comment');
+          log(err);
+          res.writeHead(401, { location: "/public/comment.html" });
+          res.end("you have already made a comment");
         } else {
           // add is comment is successful
-          res.writeHead(302, { 'location': '/public/comment.html' })
+          res.writeHead(302, { location: "/public/comment.html" });
           res.end();
         }
-      })
+      });
     });
     // insert into commentsTable
     //comment text
@@ -184,8 +176,8 @@ const res200 = (res, resource, contentType) => {
 const staticHandler = (req, res) => {
   const { url } = req;
 
-  let basePath = path.join(__dirname, '..');
-  let resource = url.replace(/^(\.+[/\\])+/, ''); // removes all ./ and ../
+  let basePath = path.join(__dirname, "..");
+  let resource = url.replace(/^(\.+[/\\])+/, ""); // removes all ./ and ../
 
   if (url === "/" || url === "/index.html") {
     basePath = path.resolve("./public");
@@ -211,24 +203,27 @@ const staticHandler = (req, res) => {
 };
 
 const listHandler = (req, res) => {
-  const groupName = req.url.split('=')[1];
-  fs.readFile(path.join(__dirname, 'data', 'countries.min.json'), (err, file) => {
-    if (err) {
-      resResourceError(res)
-    } else {
-      const obj = JSON.parse(file);
-      const listOfCountries = Object.keys(obj);
-      if (groupName === 'country') {
-        res200(res, JSON.stringify(listOfCountries), 'application/json');
+  const groupName = req.url.split("=")[1];
+  fs.readFile(
+    path.join(__dirname, "data", "countries.min.json"),
+    (err, file) => {
+      if (err) {
+        resResourceError(res);
       } else {
-        const country = req.url.split('&')[1].replace('%20', ' ');
-        if (listOfCountries.includes(country)) {
-          const cites = obj[country];
-          res200(res, JSON.stringify(cites), 'application/json');
+        const obj = JSON.parse(file);
+        const listOfCountries = Object.keys(obj);
+        if (groupName === "country") {
+          res200(res, JSON.stringify(listOfCountries), "application/json");
+        } else {
+          const country = req.url.split("&")[1].replace("%20", " ");
+          if (listOfCountries.includes(country)) {
+            const cites = obj[country];
+            res200(res, JSON.stringify(cites), "application/json");
+          }
         }
       }
     }
-  });
+  );
 };
 module.exports = {
   staticHandler,
