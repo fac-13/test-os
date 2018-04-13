@@ -5,26 +5,37 @@
     <meta charset="utf-8">
     <title>Sign Up</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./signup.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <nav>
-    <a href="/">home</a>
-    <a href="/public/comment.html">Add Comment</a>
-    <a href="/public/signup.html">Sign Up</a>
-    <a href="/public/login.html">Login</a>
-  </nav>
+    <nav class="nav__bar">
+        <button name="button" class="nav__button">
+            <a href="/">home</a>
+        </button>
+        <button name="button" class="nav__button">
+            <a href="/public/comment.html">Add Comment</a>
+        </button>
+        <button name="button" class="nav__button">
+            <a href="/public/signup.html">Sign Up</a>
+        </button>
+        <button name="button" class="nav__button">
+            <a href="/public/login.html">Login</a>
+        </button>
+    </nav>
 
     <section class="section__form">
         <form id="signup-form" action="/signup" method="POST">
             <label for="username">Username</label>
-            <input name="username" id="username" pattern="^[a-zA-Z0-9]+$" type="text" required>
+            <input class="form__input" name="username" id="username" pattern="^[a-zA-Z0-9]+$" type="text" required>
             <label for="password">Password</label>
-            <input name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!$%&amp(-/:-?_{}~])(?=.*[A-Z]).{9,}" type="password" required>
+            <input class="form__input" name="password" id="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!$%&amp(-/:-?_{}~])(?=.*[A-Z]).{9,}"
+                type="password" required>
             <label for="confirm-password">Confirm Password</label>
-            <input id="confirm-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!$%&amp(-/:-?_{}~])(?=.*[A-Z]).{9,}" type="password" required>
-            <button id="submit" type="submit">Submit</button>
+            <input class="form__input" id="confirm-password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[!$%&amp(-/:-?_{}~])(?=.*[A-Z]).{9,}" type="password"
+                required>
+            <button class="form__submit-button" id="submit" type="submit">Submit</button>
+            <p class="error" aria-live="polite"></p>
         </form>
     </section>
     <script src="./signup.js"></script>

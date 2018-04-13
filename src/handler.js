@@ -53,6 +53,9 @@ const loginHandler = (req, res) => {
               });
             }
           });
+        // } else {
+        //   res.writeHead(302, {location: "/Public/login.html"});
+        //   res.end();
         }
       }
     });
@@ -89,7 +92,7 @@ const signUpHandler = (req, res) => {
                     res.writeHead(500, {
                       "Content-Type": "text/html"
                     });
-                    res.end("<h1>Something went wrong with our server</h1>");
+                    res.end("<h1>Username already exists. Please use login form instead</h1>");
                   } else {
                     res.writeHead(200, {
                       "Content-Type": "text/html"
@@ -105,6 +108,7 @@ const signUpHandler = (req, res) => {
     });
   });
 };
+
 
 function getUserId() {
   return 1;
@@ -142,8 +146,6 @@ const addCommentHandler = (req, res) => {
   req.on("data", function (chunk) {
     data += chunk;
   });
-
-
   req.on("end", () => {
     const { country, city, comment } = qs.parse(data);
     // get user id from cookie

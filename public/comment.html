@@ -1,40 +1,45 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Add Comment</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<head>
+  <meta charset="utf-8">
+  <title>Add Comment</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <nav>
-    <a href="/">home</a>
-    <a href="/public/comment.html">Add Comment</a>
-    <a href="/public/signup.html">Sign Up</a>
-    <a href="/public/login.html">Login</a>
+  <nav class="nav__bar">
+    <button name="button" class="nav__button">
+      <a href="/">home</a>
+    </button>
+    <button name="button" class="nav__button">
+      <a href="/public/comment.html">Add Comment</a>
+    </button>
+    <button name="button" class="nav__button">
+      <a href="/public/signup.html">Sign Up</a>
+    </button>
+    <button name="button" class="nav__button">
+      <a href="/public/login.html">Login</a>
+    </button>
   </nav>
 
-  <form id="comment-form" action="/add-comment" method="POST">
-    <label for="country-input">Select Country</label>
-    <input list="countries" name="country" id="country-input" required autocomplete="off">
-    <datalist id="countries">
-
-    </datalist>
-
-
-    <label for="city-input">Select City</label>
-    <input list="cities" name="city" id="city-input" required autocomplete="off">
-    <datalist id="cities">
-
-    </datalist>
-
-
-    <label for="comment-input">Write your comment</label>
-    <textarea name="comment" cols="30" rows="10" id="comment-input" required autocomplete="off"></textarea>
-
-    <input type="submit" id="commentBtn" value="Comment"/>
-  </form>
-
+  <section class="section__form">
+    <form id="comment-form" action="/add-comment" method="POST">
+      <label for="country-input">Select Country</label>
+      <input class="form__input" list="countries" name="country" id="country-input" required autocomplete="off">
+      <datalist id="countries"></datalist>
+      <label for="city-input">Select City</label>
+      <input class="form__input" list="cities" name="city" id="city-input" required autocomplete="off">
+      <datalist id="cities"></datalist>
+      <label for="comment-input">Write your comment</label>
+      <textarea class="form__textarea" name="comment" cols="30" rows="10" id="comment-input" required autocomplete="off"></textarea>
+      <p class="error" aria-live="polite"></p>
+      <input class="form__submit-button" type="submit" id="commentBtn" value="Comment" />
+    </form>
+  </section>
 
   <script src="./comment.js"></script>
 </body>
+
 </html>
