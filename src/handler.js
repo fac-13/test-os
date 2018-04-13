@@ -9,6 +9,7 @@ const check_destination_exists = require("../queries/check_destinations");
 const register_destination = require("../queries/register_destination");
 const get_destination_id = require("../queries/get_destination_id");
 const register_comment = require("../queries/register_comment");
+const get_comments = require("../queries/get_comments");
 
 const { log } = console;
 const secret = process.env.secret;
@@ -35,9 +36,6 @@ const loginHandler = (req, res) => {
               res.end("<h1> Can't log in at this time</h1>");
             } else {
               bcrypt.compare(password, resPassword, (err, resBcrypt) => {
-                console.log("password is ", password);
-                console.log("res password ", resPassword);
-                console.log(resBcrypt);
                 if (err) {
                   res.writeHead(500, { "Content-Type": "text/html" });
                   res.end("<h1>Something went wrong with our server</h1>");
@@ -210,6 +208,24 @@ const staticHandler = (req, res) => {
   });
 };
 
+const getComments = (request, response) => {
+  get_comments((err, res) => {
+    if (err) {
+      response.writeHead(500, "Content-Type:text/html");
+      response.end(
+        "<h1>Sorry, there was a problem getting the posts from the server. Try again later.</h1>"
+      );
+    } else {
+      let comments = JSON.stringify(res);
+      response.writeHead(200, {
+        "content-type": "application/json"
+      });
+      response.end(comments);
+    }
+  });
+};
+
+
 const listHandler = (req, res) => {
   const groupName = req.url.split('=')[1];
   fs.readFile(path.join(__dirname, 'data', 'countries.min.json'), (err, file) => {
@@ -235,5 +251,6 @@ module.exports = {
   signUpHandler,
   loginHandler,
   listHandler,
+  getComments,
   addCommentHandler
 };
