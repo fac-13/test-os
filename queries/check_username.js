@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 const dbConnection = require("../src/database/db_connection.js");
 
 const check_user_exists = (username, cb) => {

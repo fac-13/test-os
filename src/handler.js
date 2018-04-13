@@ -10,12 +10,13 @@ const register_destination = require("../queries/register_destination");
 const get_destination_id = require("../queries/get_destination_id");
 const register_comment = require("../queries/register_comment");
 
+
 const { log } = console;
 const secret = process.env.secret;
 
 const loginHandler = (req, res) => {
-  let data = "";
-  req.on("data", function(chunk) {
+  let data = '';
+  req.on('data', function(chunk){
     data += chunk;
   });
   req.on("end", () => {
@@ -59,9 +60,10 @@ const loginHandler = (req, res) => {
   });
 };
 
+
 const signUpHandler = (req, res) => {
   let data = "";
-  req.on("data", function(chunk) {
+  req.on("data", function (chunk) {
     data += chunk;
   });
   req.on("end", () => {
@@ -120,8 +122,7 @@ function getDestinationId(country, city, cb) {
       if (res[0].case === false) {
         // add destination to database
         register_destination(country, city, (err, dbRes) => {
-          if (err) console.log(err);
-          else console.log(res);
+          if (err) cb(err);
           get_destination_id(city, (err, res) => {
             if (err) cb(err);
             else cb(null, res[0].id);
@@ -140,9 +141,10 @@ function getDestinationId(country, city, cb) {
 
 const addCommentHandler = (req, res) => {
   let data = "";
-  req.on("data", function(chunk) {
+  req.on("data", function (chunk) {
     data += chunk;
   });
+
 
   req.on("end", () => {
     const { country, city, comment } = qs.parse(data);
@@ -150,17 +152,19 @@ const addCommentHandler = (req, res) => {
     const userId = getUserId();
     //get destinations id from destinations
 
-    getDestinationId(country, city, (err, dbRes) => {
-      console.log(dbRes);
-      const destId = dbRes;
+    getDestinationId(country, city, (err, destId) => {
+      log('destid', destId)
       register_comment(comment, userId, destId, (err, dbRes) => {
-        if (err) console.log(err);
-        else {
-          // add is comment is sucessfull
-          res.writeHead(302, { location: "/public/comment.html" });
+        if (err) {
+          log(err)
+          res.writeHead(401, { 'location': '/public/comment.html' });
+          res.end('you have already made a comment');
+        } else {
+          // add is comment is successful
+          res.writeHead(302, { 'location': '/public/comment.html' })
           res.end();
         }
-      });
+      })
     });
     // insert into commentsTable
     //comment text
@@ -180,8 +184,8 @@ const res200 = (res, resource, contentType) => {
 const staticHandler = (req, res) => {
   const { url } = req;
 
-  let basePath = path.resolve("./"); // path to start with root of project
-  let resource = url.replace(/^(\.+[/\\])+/, ""); // removes all ./ and ../
+  let basePath = path.join(__dirname, '..');
+  let resource = url.replace(/^(\.+[/\\])+/, ''); // removes all ./ and ../
 
   if (url === "/" || url === "/index.html") {
     basePath = path.resolve("./public");
@@ -207,30 +211,24 @@ const staticHandler = (req, res) => {
 };
 
 const listHandler = (req, res) => {
-  const groupName = req.url.split("=")[1];
-  log(groupName);
-  fs.readFile(
-    path.join(__dirname, "data", "countries.min.json"),
-    (err, file) => {
-      if (err) {
-        resResourceError(res);
+  const groupName = req.url.split('=')[1];
+  fs.readFile(path.join(__dirname, 'data', 'countries.min.json'), (err, file) => {
+    if (err) {
+      resResourceError(res)
+    } else {
+      const obj = JSON.parse(file);
+      const listOfCountries = Object.keys(obj);
+      if (groupName === 'country') {
+        res200(res, JSON.stringify(listOfCountries), 'application/json');
       } else {
-        const obj = JSON.parse(file);
-        const listOfCountries = Object.keys(obj);
-        if (groupName === "country") {
-          res200(res, JSON.stringify(listOfCountries), "application/json");
-        } else {
-          log("get cities list");
-          const country = req.url.split("&")[1].replace("%20", " ");
-          log(country);
-          if (listOfCountries.includes(country)) {
-            const cites = obj[country];
-            res200(res, JSON.stringify(cites), "application/json");
-          }
+        const country = req.url.split('&')[1].replace('%20', ' ');
+        if (listOfCountries.includes(country)) {
+          const cites = obj[country];
+          res200(res, JSON.stringify(cites), 'application/json');
         }
       }
     }
-  );
+  });
 };
 module.exports = {
   staticHandler,
