@@ -10,13 +10,12 @@ const register_destination = require("../queries/register_destination");
 const get_destination_id = require("../queries/get_destination_id");
 const register_comment = require("../queries/register_comment");
 
-
 const { log } = console;
 const secret = process.env.secret;
 
 const loginHandler = (req, res) => {
-  let data = '';
-  req.on('data', function(chunk){
+  let data = "";
+  req.on("data", function (chunk) {
     data += chunk;
   });
   req.on("end", () => {
@@ -62,7 +61,6 @@ const loginHandler = (req, res) => {
     });
   });
 };
-
 
 const signUpHandler = (req, res) => {
   let data = "";
@@ -110,6 +108,7 @@ const signUpHandler = (req, res) => {
     });
   });
 };
+
 
 function getUserId() {
   return 1;
