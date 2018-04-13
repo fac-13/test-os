@@ -6,8 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build-db": "node src/database/db_build.js",
-    "start" : "node src/server.js",
-    "dev" : "nodemon src/server.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -28,6 +28,7 @@
     "tape": "^4.9.0"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "env2": "^2.2.0",
     "pg": "^7.4.1"
   }
