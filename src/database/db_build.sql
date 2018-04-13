@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS users, comments, destinations CASCADE;
 CREATE TABLE users (
     id BIGSERIAL PRIMARY KEY,
     username VARCHAR(100) NOT NULL,
-    password CHAR(64) NOT NULL,
+    password VARCHAR(64) NOT NULL, -- YO!!!, MAKE SURE HASHED PASSWORDS ARE THIS TYPE!
     member_since TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
