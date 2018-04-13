@@ -89,7 +89,7 @@ const signUpHandler = (req, res) => {
                     res.writeHead(500, {
                       "Content-Type": "text/html"
                     });
-                    res.end("<h1>Something went wrong with our server</h1>");
+                    res.end("<h1>Username already exists. Please use login form instead</h1>");
                   } else {
                     res.writeHead(200, {
                       "Content-Type": "text/html"

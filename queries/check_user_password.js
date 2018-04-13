@@ -6,7 +6,7 @@ const check_user_password = (username, cb) => {
     [username],
     (err, res) => {
       if (err) cb(err);
-      else cb(null, res);
+      else cb(null, res.rows[0].password);
     }
   );
 };
